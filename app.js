@@ -1,34 +1,46 @@
 const products = [
-  {id:"r1",cat:"racket",icon:"🏸",name:"Aero Strike 4U",desc:"Leichter Allround-Schläger für Training und Match.",price:89.90,badge:"Bestseller"},
-  {id:"r2",cat:"racket",icon:"🏸",name:"Power Smash 3U",desc:"Kopflastige Balance für offensives Doppel und Einzel.",price:119.90,badge:"Performance"},
-  {id:"s1",cat:"shuttle",icon:"🪶",name:"Feather Pro 12",desc:"Naturfederbälle, 12er-Dose, Geschwindigkeit 77.",price:29.90,badge:"Verein"},
-  {id:"s2",cat:"shuttle",icon:"⚪",name:"Training Nylon 6",desc:"Robuste Nylonbälle für Einsteiger und Training.",price:14.90,badge:"Training"},
-  {id:"g1",cat:"grip",icon:"◩",name:"Dry Grip 3er",desc:"Dünnes Overgrip mit trockenem, direktem Griffgefühl.",price:8.90,badge:"3er Pack"},
-  {id:"g2",cat:"grip",icon:"◩",name:"Comfort Grip 3er",desc:"Weiches Overgrip für längere Trainingseinheiten.",price:9.90,badge:"Comfort"},
-  {id:"a1",cat:"accessory",icon:"🎒",name:"Court Bag 6R",desc:"Schlägertasche mit Schuh- und Zubehörfach.",price:54.90,badge:"Neu"},
-  {id:"a2",cat:"accessory",icon:"🧦",name:"Match Socks 2er",desc:"Gepolsterte Sportsocken für Hallentraining.",price:12.90,badge:"2er Pack"}
+  {id:"r1",sku:"YON-ARC11P",cat:"racket",brand:"Yonex",name:"ARCSABER 11 PRO",desc:"4U/G5, steif, Made in Japan, unbesaitet.",price:179.40,compareAt:179.90,stock:6,badge:"−0,50 €"},
+  {id:"r2",sku:"YON-NF800P",cat:"racket",brand:"Yonex",name:"NANOFLARE 800 PRO",desc:"4U/G5, grifflastig, sehr steif, Turnier.",price:179.40,compareAt:179.90,stock:5,badge:"−0,50 €"},
+  {id:"s1",sku:"YON-AS30",cat:"shuttle",brand:"Yonex",name:"AEROSENSA 30 12er",desc:"Gänse-Naturfeder, Club- und Turniertraining.",price:49.45,compareAt:49.95,stock:24,badge:"Club"},
+  {id:"s2",sku:"YON-AS50",cat:"shuttle",brand:"Yonex",name:"AEROSENSA 50 12er",desc:"Premium-Gänsefeder für hochwertigen Spielbetrieb.",price:56.37,compareAt:56.87,stock:12,badge:"Premium"},
+  {id:"s3",sku:"YON-M600",cat:"shuttle",brand:"Yonex",name:"MAVIS 600 Nylon 6er",desc:"Langlebiger Nylonball für Training.",price:11.45,compareAt:11.95,stock:18,badge:"Training"},
+  {id:"s4",sku:"YON-M2000",cat:"shuttle",brand:"Yonex",name:"MAVIS 2000 Nylon 6er",desc:"Hochwertiger Nylonball mit stabiler Flugkurve.",price:12.45,compareAt:12.95,stock:18,badge:"Bestseller"},
+  {id:"g1",sku:"YON-MESH3",cat:"grip",brand:"Yonex",name:"Mesh Grap 0.65 mm 3er",desc:"Weiß, perforiertes Overgrip.",price:11.45,compareAt:11.95,stock:20,badge:"3er Pack"},
+  {id:"g2",sku:"YON-FROT10",cat:"grip",brand:"Yonex",name:"Frottee Grip 10er",desc:"Baumwoll-Frotteegriffband für schweißintensive Spiele.",price:21.45,compareAt:21.95,stock:10,badge:"10er Pack"},
+  {id:"a1",sku:"YON-BG65-200",cat:"accessory",brand:"Yonex",name:"BG 65 0.70 mm 200 m",desc:"Allround-Badmintonsaite mit Fokus auf Haltbarkeit.",price:96.94,compareAt:97.44,stock:8,badge:"200 m"}
 ];
 
 const money = n => n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
-let cart = JSON.parse(localStorage.getItem("shuttlehaus-cart") || "{}");
+let cart = JSON.parse(localStorage.getItem("shuttlewert-cart") || "{}");
 let filter = "all";
 
 const grid = document.querySelector("#productGrid");
 const cartDrawer = document.querySelector("#cartDrawer");
 const overlay = document.querySelector("#overlay");
 
+function productVisual(p){
+  return `<div class="product-visual product-visual-real">
+    <span class="product-badge">${p.badge}</span>
+    <div class="visual-brand">${p.brand}</div>
+    <div class="visual-model">${p.name}</div>
+    <div class="visual-note">Originalfoto folgt nach Bildfreigabe</div>
+  </div>`;
+}
+
 function renderProducts(){
   const visible = products.filter(p => filter==="all" || p.cat===filter);
   grid.innerHTML = visible.map(p => `
     <article class="product-card">
-      <div class="product-visual"><span class="product-badge">${p.badge}</span><span aria-hidden="true">${p.icon}</span></div>
+      ${productVisual(p)}
       <div class="product-body">
-        <div class="product-category">${label(p.cat)}</div>
+        <div class="product-category">${label(p.cat)} · SKU ${p.sku}</div>
         <div class="product-title">${p.name}</div>
         <div class="product-desc">${p.desc}</div>
+        <div class="stock ${p.stock < 4 ? "low" : ""}">${p.stock > 0 ? `Auf Lager: ${p.stock}` : "Nicht auf Lager"}</div>
+        <div class="compare-price">Referenz: ${money(p.compareAt)}</div>
         <div class="product-bottom">
           <span class="price">${money(p.price)}</span>
-          <button class="add-button" data-add="${p.id}" type="button">Hinzufügen</button>
+          <button class="add-button" data-add="${p.id}" type="button" ${p.stock<=0?"disabled":""}>Hinzufügen</button>
         </div>
       </div>
     </article>`).join("");
@@ -39,13 +51,21 @@ function label(cat){
 }
 
 function save(){
-  localStorage.setItem("shuttlehaus-cart", JSON.stringify(cart));
+  localStorage.setItem("shuttlewert-cart", JSON.stringify(cart));
   renderCart();
 }
 
-function add(id){ cart[id]=(cart[id]||0)+1; save(); openCart(); }
+function add(id){
+  const p=products.find(x=>x.id===id);
+  const next=(cart[id]||0)+1;
+  if(next>p.stock) return alert("Die gewünschte Menge ist derzeit nicht verfügbar.");
+  cart[id]=next; save(); openCart();
+}
 function change(id,delta){
-  cart[id]=(cart[id]||0)+delta;
+  const p=products.find(x=>x.id===id);
+  const next=(cart[id]||0)+delta;
+  if(next>p.stock) return;
+  cart[id]=next;
   if(cart[id]<=0) delete cart[id];
   save();
 }
@@ -90,10 +110,7 @@ overlay.addEventListener("click",closeCart);
 document.querySelector("#checkoutButton").addEventListener("click",()=>{
   const entries=Object.entries(cart);
   if(!entries.length) return alert("Der Warenkorb ist leer.");
-  const lines=entries.map(([id,qty])=>{const p=products.find(x=>x.id===id);return `${qty}x ${p.name} – ${money(p.price*qty)}`;});
-  const total=entries.reduce((s,[id,q])=>s+products.find(x=>x.id===id).price*q,0);
-  const body=encodeURIComponent("Hallo,\n\nich möchte folgende Produkte anfragen:\n\n"+lines.join("\n")+"\n\nSumme: "+money(total)+"\n\nName:\nAdresse:\nTelefon:\n\nViele Grüße");
-  location.href=`mailto:shop@example.com?subject=Bestellanfrage%20ShuttleHaus&body=${body}`;
+  location.href="checkout.html";
 });
 
 renderProducts(); renderCart();

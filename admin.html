@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | ShuttleWert</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="index.html"><span class="brand-mark">SW</span><span>ShuttleWert Admin</span></a>
+    <a class="button secondary" href="index.html">Shop</a>
+  </div>
+</header>
+<main class="admin-wrap">
+  <section class="checkout-card">
+    <h1 class="checkout-title">Bestellungen</h1>
+    <p class="small"><strong>Demo:</strong> Diese Daten liegen nur im Browser-LocalStorage. Für echte Kundenbestellungen wird ein gesichertes Backend benötigt.</p>
+    <div id="orders"></div>
+  </section>
+  <section class="checkout-card">
+    <h2>Bestandsverwaltung</h2>
+    <table class="admin-table">
+      <thead><tr><th>SKU</th><th>Produkt</th><th>Startbestand</th></tr></thead>
+      <tbody>
+        <tr><td>YON-ARC11P</td><td>ARCSABER 11 PRO</td><td>6</td></tr>
+        <tr><td>YON-NF800P</td><td>NANOFLARE 800 PRO</td><td>5</td></tr>
+        <tr><td>YON-AS30</td><td>AEROSENSA 30</td><td>24</td></tr>
+        <tr><td>YON-AS50</td><td>AEROSENSA 50</td><td>12</td></tr>
+        <tr><td>YON-M600</td><td>MAVIS 600</td><td>18</td></tr>
+        <tr><td>YON-M2000</td><td>MAVIS 2000</td><td>18</td></tr>
+        <tr><td>YON-MESH3</td><td>Mesh Grap 3er</td><td>20</td></tr>
+        <tr><td>YON-FROT10</td><td>Frottee Grip 10er</td><td>10</td></tr>
+        <tr><td>YON-BG65-200</td><td>BG 65 200 m</td><td>8</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+<script>
+const orders=JSON.parse(localStorage.getItem("shuttlewert-orders")||"[]");
+const money=n=>Number(n||0).toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+document.querySelector("#orders").innerHTML=orders.length?orders.map(o=>`
+  <article class="order-card">
+    <div><strong>${o.id}</strong><br><small>${new Date(o.createdAt).toLocaleString("de-DE")}</small></div>
+    <div>${o.customer.firstName||""} ${o.customer.lastName||""}</div>
+    <div><strong>${money(o.total)}</strong></div>
+    <div>Status: ${o.status}</div>
+  </article>`).join(""):"<p>Noch keine lokalen Bestellentwürfe.</p>";
+</script>
+</body>
+</html>
