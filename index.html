@@ -1,110 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nina and Gabi's Badminton Journey</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-        nav {
-            text-align: center;
-            margin: 1rem 0;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        section {
-            padding: 2rem;
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            text-align: center;
-            margin: 2rem 0;
-            font-size: 0.9rem;
-            color: #777;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Badminton-Shop für Schläger, Bälle, Griffbänder und Zubehör." />
+  <title>ShuttleHaus | Badminton Shop</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<header>
-    <h1>Nina and Gabi's Badminton Journey</h1>
-    <p>Follow Nina and Gabi's training, tournaments, and achievements!</p>
-</header>
-
-<nav>
-    <a href="#about">About</a>
-    <a href="#trainings">Trainings</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
-</nav>
-
-<section id="about">
-    <h2>About Nina and Gabi</h2>
-    <p>Nina and Gabi are passionate badminton players who train regularly to improve their skills and compete in tournaments. Their dedication and love for the sport inspire everyone around them.</p>
-</section>
-
-<section id="trainings">
-    <h2>Trainings</h2>
-    <p>Both Nina and Gabi follow a rigorous training schedule to hone their skills. Here are some highlights:</p>
-    <ul>
-        <li>Weekly practice with professional coaches</li>
-        <li>Focus on agility, strength, and technique</li>
-        <li>Participation in advanced training camps</li>
-    </ul>
-</section>
-
-<section id="gallery">
-    <h2>Gallery</h2>
-    <div class="gallery">
-        <img src="https://via.placeholder.com/200" alt="Nina and Gabi training">
-        <img src="https://via.placeholder.com/200" alt="Action shot during practice">
-        <img src="https://via.placeholder.com/200" alt="Trophy moment">
-        <img src="https://via.placeholder.com/200" alt="Training session">
+  <header class="site-header">
+    <div class="topbar">Kostenloser Versand ab 80 € · Versand innerhalb Deutschlands</div>
+    <div class="nav-wrap">
+      <a class="brand" href="#top" aria-label="ShuttleHaus Startseite">
+        <span class="brand-mark">SH</span>
+        <span>ShuttleHaus</span>
+      </a>
+      <nav aria-label="Hauptnavigation">
+        <a href="#produkte">Produkte</a>
+        <a href="#service">Service</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <button id="cartButton" class="cart-button" type="button" aria-label="Warenkorb öffnen">
+        Warenkorb <span id="cartCount">0</span>
+      </button>
     </div>
-</section>
+  </header>
 
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Want to connect or learn more about Nina and Gabi's journey? Feel free to reach out:</p>
-    <p>Email: <a href="mailto:nina.gabi.badminton@example.com">nina.gabi.badminton@example.com</a></p>
-</section>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">BADMINTON · TRAINING · MATCH</span>
+        <h1>Alles für dein nächstes Spiel.</h1>
+        <p>Ausgewählte Badminton-Ausrüstung für Vereinsspieler, Nachwuchs und ambitionierte Freizeitspieler.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#produkte">Jetzt entdecken</a>
+          <a class="button secondary" href="#service">Beratung</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-label">Starter Bundle</div>
+        <div class="hero-card-price">ab 49,90 €</div>
+        <div class="hero-card-note">Schläger · Griffband · Bälle</div>
+      </div>
+    </section>
 
-<footer>
-    <p>&copy; 2025 Nina and Gabi's Badminton Journey. All rights reserved.</p>
-</footer>
+    <section class="benefits" aria-label="Vorteile">
+      <div><strong>Vereinsnah</strong><span>Praxisorientierte Auswahl</span></div>
+      <div><strong>Schneller Versand</strong><span>Deutschlandweit</span></div>
+      <div><strong>Persönliche Beratung</strong><span>Für Training & Wettkampf</span></div>
+    </section>
 
+    <section id="produkte" class="shop-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">SHOP</span>
+          <h2>Badminton-Ausrüstung</h2>
+        </div>
+        <div class="filters" role="group" aria-label="Produktfilter">
+          <button class="filter active" data-filter="all" type="button">Alle</button>
+          <button class="filter" data-filter="racket" type="button">Schläger</button>
+          <button class="filter" data-filter="shuttle" type="button">Bälle</button>
+          <button class="filter" data-filter="grip" type="button">Griffbänder</button>
+          <button class="filter" data-filter="accessory" type="button">Zubehör</button>
+        </div>
+      </div>
+
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section id="service" class="service-section">
+      <div>
+        <span class="eyebrow">SERVICE</span>
+        <h2>Noch unsicher bei Schläger oder Besaitung?</h2>
+        <p>Wir helfen bei der Auswahl nach Spielniveau, Balance, Gewicht und gewünschter Saitenhärte.</p>
+      </div>
+      <a class="button primary" href="mailto:shop@example.com?subject=Badminton-Beratung">Beratung anfragen</a>
+    </section>
+
+    <section id="kontakt" class="info-section">
+      <div>
+        <h3>Kontakt</h3>
+        <p>Für Produktfragen, Vereinsbestellungen oder größere Mengen kannst du uns direkt schreiben.</p>
+        <p><a href="mailto:shop@example.com">shop@example.com</a></p>
+      </div>
+      <div>
+        <h3>Hinweis zum Shop</h3>
+        <p>Dies ist aktuell ein funktionsfähiger Shop-Prototyp. Vor einem echten Verkauf müssen Zahlungsabwicklung, Versandlogik und rechtliche Pflichtangaben vollständig eingerichtet werden.</p>
+      </div>
+    </section>
+
+    <section class="legal-links" aria-label="Rechtliche Hinweise">
+      <a href="#impressum">Impressum</a>
+      <a href="#datenschutz">Datenschutz</a>
+      <a href="#widerruf">Widerruf</a>
+      <a href="#agb">AGB</a>
+    </section>
+
+    <section id="impressum" class="legal-section">
+      <h2>Impressum</h2>
+      <p><strong>Vor Veröffentlichung ergänzen:</strong> Anbietername, Rechtsform, vertretungsberechtigte Person, ladungsfähige Anschrift, Kontakt, ggf. Register- und Steuerangaben.</p>
+    </section>
+
+    <section id="datenschutz" class="legal-section">
+      <h2>Datenschutz</h2>
+      <p><strong>Vor Veröffentlichung ergänzen:</strong> Datenschutzerklärung passend zu Hosting, Kontaktweg, Zahlungsanbieter, Analyse- und Cookie-Diensten.</p>
+    </section>
+
+    <section id="widerruf" class="legal-section">
+      <h2>Widerrufsbelehrung</h2>
+      <p><strong>Vor echtem Verkauf ergänzen:</strong> rechtskonforme Widerrufsbelehrung und Muster-Widerrufsformular.</p>
+    </section>
+
+    <section id="agb" class="legal-section">
+      <h2>AGB</h2>
+      <p><strong>Optional, aber empfohlen:</strong> Verkaufs-, Zahlungs-, Versand- und Gewährleistungsbedingungen rechtlich prüfen lassen.</p>
+    </section>
+  </main>
+
+  <aside id="cartDrawer" class="cart-drawer" aria-hidden="true">
+    <div class="cart-header">
+      <h2>Warenkorb</h2>
+      <button id="closeCart" class="icon-button" type="button" aria-label="Warenkorb schließen">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Summe</span><strong id="cartTotal">0,00 €</strong></div>
+      <button id="checkoutButton" class="button primary full" type="button">Bestellanfrage erstellen</button>
+      <p class="small">Noch keine Online-Zahlung: Die Bestellung wird als E-Mail-Anfrage vorbereitet.</p>
+    </div>
+  </aside>
+  <div id="overlay" class="overlay" hidden></div>
+
+  <footer>
+    <div>© 2026 ShuttleHaus · Badminton Shop Prototyp</div>
+    <div>Made for badminton players in Germany.</div>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
