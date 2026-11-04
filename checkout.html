@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | ShuttleWert</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="topbar">Versandkostenfrei innerhalb Deutschlands · 0,00 € Versand</div>
+  <div class="nav-wrap">
+    <a class="brand" href="index.html"><span class="brand-mark">SW</span><span>ShuttleWert</span></a>
+    <a class="button secondary" href="index.html">← Weiter einkaufen</a>
+  </div>
+</header>
+<main class="checkout-wrap">
+  <section class="checkout-card">
+    <span class="eyebrow">CHECKOUT</span>
+    <h1 class="checkout-title">Bestellung abschließen</h1>
+    <form id="checkoutForm">
+      <div class="form-grid">
+        <label>Vorname<input name="firstName" required></label>
+        <label>Nachname<input name="lastName" required></label>
+        <label>E-Mail<input name="email" type="email" required></label>
+        <label>Telefon<input name="phone"></label>
+        <label class="wide">Straße und Hausnummer<input name="street" required></label>
+        <label>PLZ<input name="zip" required></label>
+        <label>Ort<input name="city" required></label>
+      </div>
+      <div class="shipping-box">
+        <strong>Versand Deutschland</strong>
+        <span>0,00 €</span>
+      </div>
+      <label class="check"><input type="checkbox" required> Ich habe Widerrufsbelehrung und Datenschutzhinweise gelesen.</label>
+      <button class="button primary full" type="submit">Bestellung prüfen</button>
+    </form>
+  </section>
+
+  <aside class="checkout-card">
+    <h2>Deine Bestellung</h2>
+    <div id="checkoutItems"></div>
+    <div class="checkout-total"><span>Gesamt</span><strong id="checkoutTotal">0,00 €</strong></div>
+    <div class="paypal-box">
+      <h3>PayPal</h3>
+      <p>PayPal-Konto des Shops: <strong>ng.dd@gmx.de</strong></p>
+      <p>Die Live-Zahlung wird aktiviert, sobald die PayPal Business App mit Client ID und serverseitigem Secret verbunden ist.</p>
+      <button class="button secondary full" type="button" disabled>PayPal Live noch nicht aktiviert</button>
+    </div>
+  </aside>
+</main>
+<script>
+const products = {
+  r1:{name:"Yonex ARCSABER 11 PRO",price:179.40},
+  r2:{name:"Yonex NANOFLARE 800 PRO",price:179.40},
+  s1:{name:"Yonex AEROSENSA 30 12er",price:49.45},
+  s2:{name:"Yonex AEROSENSA 50 12er",price:56.37},
+  s3:{name:"Yonex MAVIS 600 Nylon 6er",price:11.45},
+  s4:{name:"Yonex MAVIS 2000 Nylon 6er",price:12.45},
+  g1:{name:"Yonex Mesh Grap 0.65 mm 3er",price:11.45},
+  g2:{name:"Yonex Frottee Grip 10er",price:21.45},
+  a1:{name:"Yonex BG 65 0.70 mm 200 m",price:96.94}
+};
+const money=n=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+const cart=JSON.parse(localStorage.getItem("shuttlewert-cart")||"{}");
+let total=0;
+document.querySelector("#checkoutItems").innerHTML=Object.entries(cart).map(([id,q])=>{
+  const p=products[id]; if(!p) return "";
+  total+=p.price*q;
+  return `<div class="cart-item"><span>${q} × ${p.name}</span><strong>${money(p.price*q)}</strong></div>`;
+}).join("") || "<p>Der Warenkorb ist leer.</p>";
+document.querySelector("#checkoutTotal").textContent=money(total);
+
+document.querySelector("#checkoutForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!Object.keys(cart).length) return alert("Der Warenkorb ist leer.");
+  const form=Object.fromEntries(new FormData(e.target).entries());
+  const order={
+    id:"SW-"+Date.now(),
+    createdAt:new Date().toISOString(),
+    status:"Entwurf",
+    total,
+    customer:form,
+    items:Object.entries(cart).map(([id,qty])=>({id,qty,name:products[id]?.name,price:products[id]?.price}))
+  };
+  const orders=JSON.parse(localStorage.getItem("shuttlewert-orders")||"[]");
+  orders.unshift(order);
+  localStorage.setItem("shuttlewert-orders",JSON.stringify(orders));
+  alert("Bestellung wurde lokal als Entwurf gespeichert. Für echte Bestellungen muss als Nächstes das sichere Backend + PayPal Live aktiviert werden.");
+  location.href="admin.html";
+});
+</script>
+</body>
+</html>
