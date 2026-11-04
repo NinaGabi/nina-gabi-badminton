@@ -85,3 +85,23 @@ footer{max-width:1180px;margin:60px auto 0;padding:28px 24px 44px;border-top:1px
   .nav-wrap{padding:12px 16px}.hero{padding-top:45px}.product-grid{grid-template-columns:1fr}.benefits{grid-template-columns:1fr}
   .benefits div+div{border-left:0;border-top:1px solid var(--line)}.info-section{grid-template-columns:1fr}footer{flex-direction:column}
 }
+
+.product-visual-real{padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.visual-brand{font-weight:900;font-size:1.1rem;letter-spacing:.12em}
+.visual-model{font-weight:800;font-size:1.2rem;max-width:220px}
+.visual-note{font-size:.72rem;color:var(--muted);margin-top:8px}
+.stock{font-size:.83rem;font-weight:700;color:#356a31}.stock.low{color:#a45f00}
+.compare-price{font-size:.82rem;color:var(--muted);text-decoration:line-through}
+.checkout-wrap,.admin-wrap{max-width:1180px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+.checkout-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+.checkout-title{font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.05em}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.form-grid .wide{grid-column:1/-1}
+.form-grid label{display:flex;flex-direction:column;gap:7px;font-size:.9rem;font-weight:700}
+.form-grid input{padding:.85rem;border:1px solid var(--line);border-radius:12px}
+.shipping-box,.checkout-total{display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:20px 0}
+.check{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:.9rem}
+.paypal-box{margin-top:24px;background:#f4f6f0;border-radius:16px;padding:18px}
+.admin-wrap{grid-template-columns:1fr}.admin-table{width:100%;border-collapse:collapse}.admin-table th,.admin-table td{padding:12px;border-bottom:1px solid var(--line);text-align:left}
+.order-card{display:grid;grid-template-columns:1.2fr 1fr .7fr .7fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.legal-page{max-width:900px;margin:40px auto;padding:0 24px}.legal-page section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:18px;line-height:1.65}
+@media(max-width:760px){.checkout-wrap{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.form-grid .wide{grid-column:auto}.order-card{grid-template-columns:1fr}}
